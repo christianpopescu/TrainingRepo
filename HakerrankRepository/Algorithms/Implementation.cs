@@ -100,7 +100,7 @@ namespace Algorithms
         {
             const int nMax = 100000;
             int t = int.Parse(Console.ReadLine());
-            
+
             bool[] result = new bool[t];
             for (int i = 0; i < t; i++)
             {
@@ -135,84 +135,98 @@ namespace Algorithms
                 Console.WriteLine(result[i] ? "YES" : "NO");
         }
 
-        public static void MaximumSubarraySum()
+        public static unsafe void MaximumSubarraySum()
         {
-            ulong queries = ulong.Parse(Console.ReadLine());
-            ulong n = 0, m = 0;
-            ulong max;
-            ulong[] result = new ulong[queries];
-            ulong modulo = 0;
-            ulong sum = 0;
-            ulong i = 0;
-            ulong j = 0;
-            for (ulong k = 0; k < queries; k++)
+            unchecked
             {
-                max = 0;
-                string[] elements = Console.ReadLine().Split();
-                n = ulong.Parse(elements[0]);
-                m = ulong.Parse(elements[1]);
-                string[] arrayElements = Console.ReadLine().Split();
-                ulong[] a = arrayElements.Select(ulong.Parse).ToArray();
-                for (i = 0; i < n; i++)
+                long queries = long.Parse(Console.ReadLine());
+                long n = 0, m = 0;
+                long max;
+                long[] result = new long[queries];
+                //long modulo = 0;
+                long sum = 0;
+                int i = 0;
+                int j = 0;
+                string[] arrayElements;
+                long[] a = new long[100000];
+                fixed (long* pA = a)
                 {
-                    sum = 0;
-                    for (j = i; j < n; j++)
+                    for (int k = 0; k < queries; k++)
                     {
-                        sum += a[j];
-                        modulo = sum%m;
-                        if (modulo > max) max = modulo;
+                        max = 0;
+                        string[] elements = Console.ReadLine().Split();
+                        n = long.Parse(elements[0]);
+                        m = long.Parse(elements[1]);
+                        arrayElements = Console.ReadLine().Split();
+                        for (int p = 0; p < n; p++)
+                            pA[p] = long.Parse(arrayElements[p]) % m;
+                        // long* pAA = Console.ReadLine().Split().Select(s => (long.Parse(s) % m)).ToArray())
+                        //for (int m = 0; m < n; m++) pA[m] = pAA[m];
+
+                        for (i = 0; i < n; i++)
+                        {
+                            sum = 0;
+                            for (j = i; j < n; j++)
+                            {
+                                //sum += a[j];
+                                sum += *(pA + j);
+                                if (sum >= m) sum -= m;
+                                if (sum > max) max = sum;
+                            }
+                        }
+                        result[k] = max;
+                    }
+                    for (long k = 0; k < queries; k++)
+                    {
+                        Console.WriteLine(result[k]);
                     }
                 }
-                result[k] = max;
-            }
-            for (ulong k = 0; k < queries; k++)
-            {
-                Console.WriteLine(result[k]);
             }
         }
 
-        public static void MaximumSubarraySumFile()
+        public static unsafe void MaximumSubarraySumFile()
         {
-            System.IO.StreamReader file = new System.IO.StreamReader("inputBig.txt");
-            long queries = long.Parse(file.ReadLine());
-            long n = 0, m = 0;
-            long max;
-            long[] result = new long[queries];
-            long modulo = 0;
-            long sum = 0;
-            long i = 0;
-            long j = 0;
+            System.IO.StreamReader file = new System.IO.StreamReader("inputBig2.txt");
             unchecked
             {
-                for (long k = 0; k < queries; k++)
-                {
+                long queries = long.Parse(file.ReadLine());
+                long n = 0, m = 0;
+                long max;
+                long[] result = new long[queries];
+                //long modulo = 0;
+                long sum = 0;
+                int i = 0;
+                int j = 0;
+                //string[] arrayElements;
+                long[] a = new long[100000];
 
+                for (int k = 0; k < queries; k++)
+                {
                     max = 0;
                     string[] elements = file.ReadLine().Split();
                     n = long.Parse(elements[0]);
                     m = long.Parse(elements[1]);
-                    string[] arrayElements = file.ReadLine().Split();
-                    long[] a = arrayElements.Select(s => (long.Parse(s)%m)).ToArray();
-                    for (i = 0; i < n; i++)
+                    //arrayElements = Console.ReadLine().Split();
+                    fixed (long* pAA = file.ReadLine().Split().Select(s => (long.Parse(s) % m)).ToArray())
                     {
-                        sum = 0;
-                        for (j = i; j < n; j++)
+                        for (i = 0; i < n; i++)
                         {
-                            sum += a[j];
-                            sum = (sum > m) ? sum-m : sum;
-                            //modulo = (sum > m) ? sum % m : sum;
-                            //modulo = sum;
-
-                            //if (modulo > max) max = modulo;
-                            if (sum > max) max = sum;
+                            sum = 0;
+                            for (j = i; j < n; j++)
+                            {
+                                //sum += a[j];
+                                sum += *(pAA + j);
+                                if (sum >= m) sum -= m;
+                                if (sum > max) max = sum;
+                            }
                         }
                     }
                     result[k] = max;
                 }
-            }
-            for (long k = 0; k < queries; k++)
-            {
-                Console.WriteLine(result[k]);
+                for (long k = 0; k < queries; k++)
+                {
+                    Console.WriteLine(result[k]);
+                }
             }
             file.Close();
         }
