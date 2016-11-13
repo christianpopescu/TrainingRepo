@@ -10,8 +10,12 @@ namespace HakerrankRepository
     {
         static void Main(string[] args)
         {
-            Action a = new Action(Algorithms.Implementation.AngryProfessor);
-            a();
+            Action a = new Action(Algorithms.Implementation.MaximumSubarraySumFile);
+             a();
+
+       
+
+
             Console.ReadKey();
         }
     }
