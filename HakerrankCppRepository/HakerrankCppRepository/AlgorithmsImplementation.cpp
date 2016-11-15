@@ -161,7 +161,146 @@ void AlgorithmsImplementation::insertionSort(int ar_size, int *  ar)
 		cout << endl;
 	}
 }
+void AlgorithmsImplementation::MaximumSubarraySum()
+{
+	using namespace std;
+	long queries;
+	cin >> queries;
+	long n = 0, m = 0;
+	long max;
+	long result[100000];
+	long a[100000];
+	long sum = 0;
+	int i = 0;
+	int j = 0;
+	for (int k = 0; k < queries; k++)
+	{
+		max = 0;
+		cin >> n;
+		cin >> m;
+		for (i = 0; i < n; i++)
+		{
+			cin >> a[i];
+			a[i] %= m;
+		}
+		for (i = 0; i < n; i++)
+		{
+			sum = 0;
+			for (j = i; j < n; j++)
+			{
+				//sum += a[j];
+				sum += a[j];
+				if (sum >= m) sum -= m; 
+				if (max < sum)max = sum;
+			}
+		}
+		result[k] = max;
+	}
+	for (int k = 0; k < queries; k++)
+	{
+		cout << result[k] << endl;
+	}
+}
 
+void AlgorithmsImplementation::MaximumSubarraySumReadAll()
+{
+	// Not good, do not use !!!!!!!!!!!!!!!!!!
+	using namespace std;
+	long queries;
+	cin >> queries;
+	//long n = 0, m = 0;
+	long n[1000];
+	long m[1000];
+	long max;
+	//long result[100000];
+	long ** a = new long*[500];
+	for (int i = 0; i < 500; i++)
+	  a[i] = new long[100000];
+	long sum = 0;
+	int i = 0;
+	int j = 0;
+	for (int k = 0; k < queries; k++)
+	{
+		max = 0;
+		cin >> n[k];
+		cin >> m[k];
+		for (i = 0; i < n[k]; i++)
+		{
+			cin >> a[k][i];
+			a[k][i] %= m[k];
+		}
+
+		
+	}
+	for (int k = 0; k < queries; k++)
+	{
+		for (i = 0; i < n[k]; i++)
+		{
+			sum = 0;
+			for (j = i; j < n[k]; j++)
+			{
+				//sum += a[j];
+				sum += a[k][j];
+				if (sum >= m[k]) sum -= m[k];
+				if (sum > max) max = sum;
+			}
+		}
+		cout << max << endl;
+	}
+}
+void AlgorithmsImplementation::CircularArrayRotation()
+{
+	using namespace std;
+	int n;
+	int k;
+	int q;
+	cin >> n >> k >> q;
+	vector<int> a(n);
+	vector<int> index(n);
+	for (int a_i = 0; a_i < n; a_i++) {
+		cin >> a[a_i];
+		index[(a_i + k) % n] = a_i;
+	}
+	vector<int> m(q);
+	for (int a0 = 0; a0 < q; a0++) {
+		
+		cin >> m[a0];
+	}
+	for (int a0 = 0; a0 < q; a0++)
+		cout << a[index[m[a0]]] << endl;
+}
+
+void AlgorithmsImplementation::RepeatedString()
+{
+	using namespace std;
+
+	string s;
+	cin >> s;
+	long n;
+	cin >> n;
+	long l = s.length();
+	long nbOfAInString = 0;
+	for (long i = 0; i < l; i++) if (s[i] == 'a') nbOfAInString++;
+	long nbTotalOfA = (n / l) * nbOfAInString;
+	for (long i = 0; i < n%l; i++) if (s[i] == 'a') nbTotalOfA++;
+	cout << nbTotalOfA;
+}
+void AlgorithmsImplementation::StrangeCounter()
+{
+	using namespace std;
+	long t;
+	cin >> t;
+	long sum = 3;
+	long value = 3;
+	long k = 0;
+	while (sum < t)
+	{
+		sum = sum + value * 2;
+		value *= 2;
+		k++;
+	}
+	cout << sum - t + 1;
+}
 AlgorithmsImplementation::~AlgorithmsImplementation()
 {
 }

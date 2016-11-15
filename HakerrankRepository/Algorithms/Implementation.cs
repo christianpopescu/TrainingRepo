@@ -231,5 +231,120 @@ namespace Algorithms
             file.Close();
         }
 
+        public static void pangram()
+        {
+            string s;
+            s = Console.ReadLine();
+            int l = s.Length;
+            Dictionary<int, int> aMap = new Dictionary<int, int>();
+            foreach (char c in s)
+            {
+                if (!aMap.ContainsKey(Convert.ToInt32(char.ToUpper(c)))) aMap.Add(Convert.ToInt32(char.ToUpper(c)), 1);
+            }
+            bool found = true;
+            for (int i = 69; i <= 90; i++)
+                if (!aMap.ContainsKey(i)) found = false;
+            if (found) Console.WriteLine("pangram");
+            else Console.WriteLine("not pangram");
+        }
+
+
+        public static void partition(int[] ar)
+        {
+            List<int> left = new List<int>();
+            List<int> equal = new List<int>();
+            List<int> right = new List<int>();
+            int p = ar[0];
+            equal.Add(p);
+            for (int i = 1; i < ar.Length; i++)
+                if (ar[i] < p) left.Add(ar[i]);
+                else if (ar[i] > p) right.Add(ar[i]);
+                else equal.Add(ar[i]);
+            foreach (int elem in left) Console.Write("{0} ", elem);
+            foreach (int elem in equal) Console.Write("{0} ", elem);
+            foreach (int elem in right) Console.Write("{0} ", elem);
+
+        }
+        public static void quickSort(ref int[] ar)
+        {
+
+            if (ar.Length == 1) return;
+            List<int> left = new List<int>();
+            //List<int> equal = new List<int>();
+            List<int> right = new List<int>();
+            int p = ar[0];
+            
+            for (int i = 1; i < ar.Length; i++)
+                if (ar[i] < p) left.Add(ar[i]);
+                else if (ar[i] > p) right.Add(ar[i]);
+
+            int[] leftArray = left.ToArray();
+            int[] rightArray = right.ToArray();
+
+            if (leftArray.Length > 0) quickSort(ref leftArray);
+            if (rightArray.Length > 0) quickSort(ref rightArray);
+
+            // Merge
+            int counter = 0;
+            foreach (int elem in leftArray)
+            {
+                Console.Write("{0} ", elem);
+                ar[counter++] = elem;
+            }
+            Console.Write("{0} ", p);
+            ar[counter++] = p;
+            foreach (int elem in rightArray)
+            {
+                Console.Write("{0} ", elem);
+                ar[counter++] = elem;
+            }
+            Console.WriteLine();
+
+        }
+        public static void QuickSort()
+        {
+            int _ar_size;
+            _ar_size = Convert.ToInt32(Console.ReadLine());
+            int[] _ar = new int[_ar_size];
+            String elements = Console.ReadLine();
+            String[] split_elements = elements.Split(' ');
+            for (int _ar_i = 0; _ar_i < _ar_size; _ar_i++)
+            {
+                _ar[_ar_i] = Convert.ToInt32(split_elements[_ar_i]);
+            }
+
+            quickSort(ref _ar);
+            //foreach (int elem in _ar) Console.Write("{0} ", elem);
+        }
+
+        public static void SherlockAndValidString()
+        {
+            string s = Console.ReadLine();
+            Dictionary<char, int> map = new Dictionary<char, int>();
+            foreach (char c in s)
+            {
+                if (map.ContainsKey(c)) map[c]++;
+                else map[c] = 1;
+            }
+            List<int> distinctValues = map.Values.Distinct().ToList();
+            if (distinctValues.Count == 1) Console.WriteLine("YES");
+            else
+            {
+                foreach (var key in map.Keys)
+                {
+                    Dictionary<char, int> workingMap = new Dictionary<char, int>(map);
+                    workingMap[key]--;
+                    if (workingMap[key] == 0) workingMap.Remove(key);
+                    if (workingMap.Values.Distinct().ToList().Count == 1)
+                    {
+                        Console.WriteLine("YES");
+                        return;
+                    }
+                }
+                Console.WriteLine("NO");
+            }
+        }
+
     }
+
 }

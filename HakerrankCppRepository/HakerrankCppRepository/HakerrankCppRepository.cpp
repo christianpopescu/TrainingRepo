@@ -8,7 +8,7 @@
 int _tmain(int argc, _TCHAR* argv[])
 {
 	using namespace std;
-	AlgorithmsImplementation::FlippingTheMatrix();
+	AlgorithmsImplementation::StrangeCounter();
 	
 /*	int a[4][3];
 
@@ -16,7 +16,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		for (int j = 0; j < 3; j++)
 			cin >> a[i][j];
 */
-
+	using namespace std;
 
 	cout << "Press <enter>\n";
 	char c=cin.get();
