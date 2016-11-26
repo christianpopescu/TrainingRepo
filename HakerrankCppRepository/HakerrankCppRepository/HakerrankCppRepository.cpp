@@ -8,7 +8,7 @@
 int _tmain(int argc, _TCHAR* argv[])
 {
 	using namespace std;
-	AlgorithmsImplementation::StrangeCounter();
+	AlgorithmsImplementation::BeautifulBinaryString();
 	
 /*	int a[4][3];
 

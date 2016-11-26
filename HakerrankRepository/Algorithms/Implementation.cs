@@ -345,6 +345,24 @@ namespace Algorithms
             }
         }
 
+        public static void IntroTutorialChallanges()
+        {
+            int V = Convert.ToInt32(Console.ReadLine());
+            int n = Convert.ToInt32(Console.ReadLine());
+            int[] table = new int[n];
+           String[] split_elements = Console.ReadLine().Split(' ');
+            for (int i = 0; i < split_elements.Count(); i++)
+            {
+               if ( (table[i] = Convert.ToInt32(split_elements[i])) == V) { Console.WriteLine(i); break; }     // exit loop on condition
+            }
+        }
+
+        public static void SimpleSumArray()
+        {
+            int n = Convert.ToInt32(Console.ReadLine());
+            int[] arr = Array.ConvertAll(Console.ReadLine().Split(' '), Int32.Parse);
+            Console.WriteLine(arr.Sum());
+        }
     }
 
 }

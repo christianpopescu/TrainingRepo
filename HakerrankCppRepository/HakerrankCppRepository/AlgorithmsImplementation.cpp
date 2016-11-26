@@ -3,6 +3,8 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <fstream>
+#include <algorithm>
 
 AlgorithmsImplementation::AlgorithmsImplementation()
 {
@@ -300,6 +302,201 @@ void AlgorithmsImplementation::StrangeCounter()
 		k++;
 	}
 	cout << sum - t + 1;
+}
+void AlgorithmsImplementation::CavityMap()
+{
+	using namespace std;
+	int n;
+	cin >> n;
+	vector<string> grid(n);
+	for (int grid_i = 0; grid_i < n; grid_i++) {
+		cin >> grid[grid_i];
+	}
+	if (n > 2)
+	{
+		for (int i = 1; i < n - 1; i++)
+			for (int j = 1; j < n - 1; j++)
+			{
+				char c = grid[i][j];
+				if ((c > grid[i - 1][j]) &&
+					(c > grid[i + 1][j]) &&
+					(c > grid[i][j - 1]) &&
+					(c > grid[i][j + 1]))
+					grid[i][j] = 'X';
+			}
+	}
+	for (int i = 0; i < n; i++)
+		cout << grid[i] << endl;
+}
+bool AlgorithmsImplementation::TestPalindrome(const std::string & s)
+{
+	int n = s.size();
+	for (int i = 0; i < n / 2 ; i++) if (s[i] != s[n - 1 - i]) return false;
+	return true;
+}
+
+void AlgorithmsImplementation::PalindromeIndex()
+{
+	using namespace std;
+	int T;
+	cin >> T;
+	string list[20];
+	int result[20];
+	for (int i = 0; i < T; i++)
+		cin >> list[i];
+	for (int i = 0; i < T; i++)
+	{
+		if (TestPalindrome(list[i])) { result[i] = -1; continue; }
+		string sbuffer(list[i].size() - 1,' ');
+		result[i] = -1;
+		for (int j = 0; j < list[i].size(); j++)
+		{
+			int counter = 0;
+			for (int k = 0; k < list[i].size(); k++)
+			{
+				if (k != j) { sbuffer[counter] = list[i][k]; counter++; }
+			}
+			if (TestPalindrome(sbuffer)) { result[i] = j; break; }
+		}
+	}
+	for (int i = 0; i < T; i++) cout << result[i] << endl;
+
+
+
+	
+}
+void AlgorithmsImplementation::MissingNumbers()
+{
+	using namespace std;
+	ifstream infile;
+	infile.open("E:\\ccp_vhdd_main\\Professional\\Training\\hakerrank\\TestCases\\Input.txt");
+	if (!(infile.is_open()))
+		return;
+	int n;
+	infile >> n;
+	int a[100020];
+	for (int i = 0; i < n; i++)
+		infile >> a[i];
+	int m;
+	infile >> m;
+	int b[100020];
+	int xmin = 20000, xmax = 0;
+	for (int i = 0; i < m; i++)
+	{
+		infile >> b[i];
+		if (b[i] < xmin) xmin = b[i];
+		if (b[i] > xmax) xmax = b[i];
+	}
+	infile.close();
+	int countA[101];
+	int countB[101];
+	for (int i = 0; i < 101; i++) countA[i] = countB[i] = 0;
+	for (int i = 0; i < n; i++) countA[a[i] - xmin]++;
+	for (int i = 0; i < m; i++) countB[b[i] - xmin]++;
+	for (int i = 0; i < xmax - xmin +1; i++) if ((countB[i] - countA[i]) >0) cout << i + xmin << " ";
+}
+void AlgorithmsImplementation::Pairs()
+{
+	using namespace std;
+	ifstream infile;
+	infile.open("E:\\ccp_vhdd_main\\Professional\\Training\\hakerrank\\TestCases\\Input.txt");
+	if (!(infile.is_open()))
+		return;
+	int n;
+	infile >> n;
+	int k;
+	infile >> k;
+	int a[100000];
+	for (int i = 0; i < n; i++) infile >> a[i];
+	int difK = 0;
+	for (int i = 0; i < n; i++)
+		for (int j = i; j < n - i; j++)
+			if (abs(a[i] - a[j]) == k)
+			{
+				difK++;
+			}
+	cout << difK;
+}
+void AlgorithmsImplementation::BeautifulBinaryString()
+{
+	using namespace std;
+	int n;
+	cin >> n;
+	string B;
+	cin >> B;
+	int trans[2][3];
+	trans[0][0] = 1;
+	trans[0][1] = 1;
+	trans[0][2] = 3;
+	trans[1][0] = 0;
+	trans[1][1] = 2;
+	trans[1][2] = 0;
+
+	int i = 0;
+	int state = 0;
+	int finalState = 3;
+	int steps = 0;
+	while (i < n )        // 0101010
+	{
+		state = trans[(B[i]=='0')?0:1][state];
+		if (state == finalState) { steps++; state = 0; }
+		i++;
+	}
+	cout << steps;
+}
+void AlgorithmsImplementation::AbsoluteElementSums()
+{
+	using namespace std;
+	int n;
+	cin >> n;
+	int a[500000];
+	int S = 0;
+	for (int i = 0; i < n; i++)
+	{
+		cin >> a[i];
+		S += abs(a[i]);
+	}
+	int q;
+	cin >> q;
+	int arrQ[500000];
+	for (int i = 0; i < q; i++)
+		cin >> arrQ[i];
+	for (int i = 0; i < q; i++)
+	{
+		int sumSign = 0;
+		int signX = (arrQ[i] >= 0) ? 1 : -1;
+		for (int j = 0; j < n; j++)
+		{
+			if (((a[j] > 0) ? +1 : -1) == signX) sumSign++;
+			else sumSign--;
+			a[j] += arrQ[i];
+		}
+		cout << (S += arrQ[i] * sumSign) << endl;
+	}
+	
+}
+bool AlgorithmsImplementation::Compare(std::pair<int, int> p1, std::pair<int, int> p2)
+{
+	return (p1.second < p2.second);
+}
+void AlgorithmsImplementation::JimAndTheOthers()
+{
+	using namespace std;
+	int n;
+	cin >> n;
+	vector<pair<int, int>> result;
+	int t, d;
+	for (int i = 0; i < n; i++)
+	{
+		cin >> t >> d;
+		pair<int, int> p;
+		p.first = i;
+		p.second = t + d;
+		result.push_back(p);
+	}
+	stable_sort(result.begin(), result.end(), Compare);
+	for (int i = 0; i < n; i++)
+		cout << result[i].first+1 << " ";
 }
 AlgorithmsImplementation::~AlgorithmsImplementation()
 {

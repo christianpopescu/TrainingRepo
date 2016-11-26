@@ -1,0 +1,52 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <bitset>
+using namespace std;
+
+
+
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+    int t;
+    cin >> t;
+    unsigned long input[10];
+    bitset<64> binput[10];
+    for (int i=0; i < t; i++)
+       {
+        unsigned long buffer;
+        cin >> buffer;
+        bitset<64> bufferBit(buffer);
+        binput[i] = bufferBit;
+       }
+    for (int i=0; i < t; i++)
+        {
+        int move = 0;
+        
+        while (binput[i].to_ulong() !=1)
+            {
+            
+            if (binput[i].count() == 1)    // power of two
+                {
+                (binput[i]>>1);
+                cout << binput[i].to_ulong() << endl;
+            }
+            else
+                {
+                for (int j =0; j<64; j++)
+                    if (binput[i].test(j))
+                    {
+                    binput[i].reset(j);
+                    break;
+                }
+            
+            }
+             move++;
+        }
+         cout << ((move%2) ? "Louis" : "Richard") << endl;
+        
+    }
+    return 0;
+}
