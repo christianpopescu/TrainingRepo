@@ -20,6 +20,7 @@ inline int parent(int i)
 
 struct Element
 {
+	int id;
 	int key;
 };
 
@@ -50,6 +51,32 @@ void MinHeapify(Element* e, int i)
 	if (smallest != i);
 	ExchangeElements(e, smallest, i);
 	MinHeapify(e, smallest);
+}
+
+void BuildMinHeap(Element*e, int pLength)
+{
+	sizePq = pLength;
+	for (int i = (pLength / 2) - 1; i >= 0; i--)
+		MinHeapify(e, i);
+}
+
+int HeapExtractMin(Element*e)
+{
+	Element min = e[0];
+	e[0] = e[sizePq--];
+	MinHeapify(e, 0);
+	return min.id;
+}
+
+void HeapDecreaseKey(Element* e, int i, int key)
+{
+	if (key > e[i].key) return; // nothing to do
+	while (i > 0 && e[parent(i)].key > e[i].key)
+	{
+		ExchangeElements(e, parent(i), i);
+		i = parent(i);
+
+	}
 }
 
 int main()
