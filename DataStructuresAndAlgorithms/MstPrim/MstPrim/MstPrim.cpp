@@ -56,8 +56,8 @@ int sizePq = 0;
 
 void ExchangeElements(Element* e, int i, int j)
 {
-	vert[e[i].key].queId = j;
-	vert[e[j].key].queId = i;
+	vert[e[i].id].queId = j;
+	vert[e[j].id].queId = i;
 	Element temp;
 	temp = e[i];
 	e[i] = e[j];
@@ -95,6 +95,7 @@ Element HeapExtractMin(Element*e)
 {
 	Element min = e[0];
 	e[0] = e[sizePq-1];
+	vert[e[0].id].queId = 0;
 	sizePq--;
 	MinHeapify(e, 0);
 	return min;
