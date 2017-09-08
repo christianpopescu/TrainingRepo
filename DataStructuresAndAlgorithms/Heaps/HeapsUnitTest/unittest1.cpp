@@ -15,7 +15,13 @@ namespace HeapsUnitTest
 			Heaps::MinHeap mh{};
 			// TODO: Your test code here
 			Assert::AreEqual(mh.size(), 0);
-			// Assert::AreEqual(1, 1);
+						
+		}
+		TEST_METHOD(InsertOneNode)
+		{
+			Heaps::MinHeap mh{};
+			mh.insert(10);
+			Assert::AreEqual(mh[1],10);
 		}
 
 	};

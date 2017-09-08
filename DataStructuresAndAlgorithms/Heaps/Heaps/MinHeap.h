@@ -8,7 +8,12 @@ namespace Heaps{
 	{
 	public:
 		MinHeap();
-		int size();
+		int size() const;
+		int parent(int i) const;
+		int left(int i) const;
+		int right(int i) const;
+		void insert(int value);
+		int operator[](int i) const;
 	private:
 		std::vector<int> V;			// structure to implement the heap
 
