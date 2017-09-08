@@ -30,12 +30,60 @@ int Heaps::MinHeap::right(int i) const
 	return ret;
 }
 
-void Heaps::MinHeap::insert(int value)
+void Heaps::MinHeap::Insert(int value)
 {
 	V.push_back(value);
+	UpHeapBubbling(size());
+}
+
+void Heaps::MinHeap::RemoveTop()
+{
+	if (size() == 1) V.pop_back();
+	else
+	{
+		std::swap(V[1], V[size()]);
+		V.pop_back();
+		DownHeapBubbling(1);
+	}
+}
+
+int Heaps::MinHeap::Top() const
+{
+	return V[1];
 }
 
 int Heaps::MinHeap::operator[](int i) const
 {
 	return V[i];
+}
+
+void Heaps::MinHeap::UpHeapBubbling(int i)
+{
+	while (i > 1 && V[i] < V[parent(i)])
+	{
+		std::swap(V[i], V[parent(i)]);
+		i = parent(i);
+	}
+}
+
+void Heaps::MinHeap::DownHeapBubbling(int i)
+{
+
+	while (i <= parent(size()))
+	{
+		int l = left(i);
+		int r = right(i);
+		int small;
+		if (l > 0 && V[i] > V[l])
+			small = l;
+		else
+			small = i;
+		if (r > 0 && V[small] > V[r]) small = r;
+		if (small != i)
+		{
+			std::swap(V[small], V[i]);
+			i = small;
+		}
+		else break;			// Down Heap Bubbling finished
+	}
 }

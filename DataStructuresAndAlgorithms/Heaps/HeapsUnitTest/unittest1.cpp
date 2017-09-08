@@ -20,8 +20,15 @@ namespace HeapsUnitTest
 		TEST_METHOD(InsertOneNode)
 		{
 			Heaps::MinHeap mh{};
-			mh.insert(10);
+			mh.Insert(10);
 			Assert::AreEqual(mh[1],10);
+		}
+		TEST_METHOD(SimpleUpBublle)
+		{
+			Heaps::MinHeap mh{};
+			mh.Insert(10);
+			mh.Insert(5);
+			Assert::AreEqual(mh[1], 5);
 		}
 
 	};

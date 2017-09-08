@@ -12,11 +12,14 @@ namespace Heaps{
 		int parent(int i) const;
 		int left(int i) const;
 		int right(int i) const;
-		void insert(int value);
+		void Insert(int value);
+		void RemoveTop();
+		int Top() const;
 		int operator[](int i) const;
 	private:
 		std::vector<int> V;			// structure to implement the heap
-
+		void UpHeapBubbling(int i);
+		void DownHeapBubbling(int i);
 
 	};
 
