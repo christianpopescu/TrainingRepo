@@ -19,11 +19,13 @@ DisjointSetGraph::DisjointSetGraph(DisjointSetGraph& dsg)
 	
 	std::map<nodeSet*, int> reverseIndex;
 	
+	nodes.resize(dsg.nodes.size());
 	// fill nodes
 	// fill revese index + copy values fields
 	for (int i = 0; i < dsg.nodes.size(); i++)
 	{
-		reverseIndex[dsg.nodes[i]] = i;
+		//reverseIndex[dsg.nodes[i]] = i;
+		reverseIndex.insert(std::make_pair(dsg.nodes[i], i));
 		nodes[i] = new nodeSet();
 		// copy values
 		nodes[i]->nbOfNodesSet = dsg.nodes[i]->nbOfNodesSet;
