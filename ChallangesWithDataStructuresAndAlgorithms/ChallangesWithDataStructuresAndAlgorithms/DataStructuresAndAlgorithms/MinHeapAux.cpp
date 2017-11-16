@@ -129,7 +129,7 @@ void MinHeapAux<T, Compare>::DecreseKey(mainIndex im)
 template <class T, class Compare>
 void MinHeapAux<T, Compare>::UpHeapBubbling(heapIndex ih)
 {
-	while (ih > 1 && comp(mainArray[V[ih]] , mainArray[V[parent(ih)]]) )
+	while ((ih > 1) && (ih <= V.size()) && comp(mainArray[V[ih]] , mainArray[V[parent(ih)]]) )
 	{
 		std::swap(locator[V[ih]], locator[V[parent(ih)]]);
 		std::swap(V[ih], V[parent(ih)]);
@@ -145,11 +145,11 @@ void MinHeapAux<T, Compare>::DownHeapBubbling(heapIndex ih)
 		int l = left(ih);
 		int r = right(ih);
 		int small;
-		if (l > 0 && comp(mainArray[V[l]], mainArray[V[ih]]))
+		if ((l > 0) && (l <= V.size()) && comp(mainArray[V[l]], mainArray[V[ih]]))
 			small = l;
 		else
 			small = ih;
-		if (r > 0 && comp(mainArray[V[r]], mainArray[V[small]])) small = r;
+		if ((r > 0) && (r <= V.size()) && comp(mainArray[V[r]], mainArray[V[small]])) small = r;
 		if (small != ih)
 		{
 			std::swap(locator[V[small]], locator[V[ih]]);

@@ -117,7 +117,9 @@ void Dijkstra::ComputeSingleSourceAlgorithm(int source)
 		pq->RemoveTop();
 		for(int i=0; i<vertexList[currentVertex].adjList.size(); i++)
 		{
+			
 			int dst = vertexList[currentVertex].adjList[i].destination;
+			//std::cout << currentVertex << " destination " << std::endl;
 			if (vertexList[dst].distanceFromSource >
 				vertexList[currentVertex].distanceFromSource + vertexList[currentVertex].adjList[i].weight)
 			{
