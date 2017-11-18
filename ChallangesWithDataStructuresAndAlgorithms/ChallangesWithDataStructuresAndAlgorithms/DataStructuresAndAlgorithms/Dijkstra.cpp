@@ -144,6 +144,7 @@ std::list<Dijkstra::PathElement> Dijkstra::GetPath(int source, int dest)
 		PathElement pe;
 		pe.destination = current;
 		pe.source = vertexList[current].precedent;
+		if (pe.source == 0) { result.clear(); return result; }
 		pe.weight = vertexList[current].distanceFromPrecedent;
 		result.push_front(pe);
 		current = vertexList[current].precedent;
