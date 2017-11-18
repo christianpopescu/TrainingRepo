@@ -47,7 +47,8 @@ class SnakeAndLadders
 			{
 				int source, destination;
 				cin >> source >> destination;
-				vD[k]->AddEdge(source, destination, 0);
+				if (destination > source + 1)
+				  vD[k]->AddEdge(source, destination, 0);
 			}
 			
 			int m;

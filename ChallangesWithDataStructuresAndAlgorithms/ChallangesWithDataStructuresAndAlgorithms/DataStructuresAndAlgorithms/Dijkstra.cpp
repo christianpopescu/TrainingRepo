@@ -40,7 +40,7 @@ public:
 		bool operator()(const Vertex& v1, const Vertex& v2);
 	};
 
-	std::unique_ptr<Vertex[]> vertexList;
+	Vertex* vertexList;
 
 	void InitSingleSource(int s);
 
@@ -55,7 +55,7 @@ public:
 
 private:
 	CompareDistances lessDistance;
-	std::unique_ptr<MinHeapAux<Dijkstra::Vertex, CompareDistances>> pq;
+	MinHeapAux<Dijkstra::Vertex, CompareDistances>* pq;
 };
 
 inline bool operator==(const Dijkstra::PathElement& pe1, const Dijkstra::PathElement& pe2);
@@ -68,7 +68,7 @@ Dijkstra::Dijkstra()
 Dijkstra::Dijkstra(int n)
 {
 	this->size = n+1;
-	vertexList = std::unique_ptr<Vertex[]>(new Vertex[n+1]);
+	vertexList = new Vertex[n+1];
 	for (int i = 1; i <= n; i++)
 		vertexList[i].id = i;
 }
@@ -104,7 +104,7 @@ void Dijkstra::AddEdge(int source, int destination, int distance)
 
 void Dijkstra::InitPriorityQueue()
 {
-	pq = std::make_unique<MinHeapAux<Vertex, CompareDistances>>(vertexList.get(), size, lessDistance);
+	pq = new MinHeapAux<Vertex, CompareDistances>(vertexList, size, lessDistance);
 }
 
 void Dijkstra::ComputeSingleSourceAlgorithm(int source)
