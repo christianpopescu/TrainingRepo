@@ -190,5 +190,7 @@ ModelManifest.xml
 /HakerrankRepository/*.suo
 /DataStructuresAndAlgorithms/Heaps/.vs
 .vs
-cmake-build-debug
-.idea
+
+# Idea build and project folder
+cmake-build-debug/
+.idea/
