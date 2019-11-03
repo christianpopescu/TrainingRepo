@@ -12,7 +12,7 @@ public:
 
 class LruCache {
 protected:
-    int maxCash;
+    int maxCache;
     std::unordered_map<int , LinkedNode* > mapCache;
     LinkedNode *head = nullptr;
     LinkedNode *tail = nullptr;
@@ -86,7 +86,13 @@ protected:
         auto* newNode = new LinkedNode();
         newNode->key = key;
         newNode->value = std::move(value);
-        RemoveNodeFromList(newNode);
+
+        // add new key
+        if (mapCache.size() == maxCache)
+        {
+            RemoveNodeFromList(tail);
+        }
+        AddNodeInFrontOflist(newNode);
     }
 
 };
