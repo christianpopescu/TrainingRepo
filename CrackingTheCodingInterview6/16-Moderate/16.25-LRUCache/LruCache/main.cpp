@@ -1,4 +1,5 @@
 #include <iostream>
+#include <utility>
 #include <bits/stdc++.h>
 
 class LinkedNode {
@@ -52,6 +53,40 @@ protected:
             head = pNode;
         }
 
+    }
+
+    // get value from key
+    // if exists sets as Last Recently Used
+    // ------------------------------------
+    std::string* getValue (int key) {
+        auto elem =mapCache.find(key);
+        if (elem == mapCache.end())
+            return nullptr;
+        return &(elem->second->value);
+    }
+
+
+    // Remove Key
+    // --------------------
+
+    void RemoveKey(int key) {
+        auto elem =mapCache.find(key);
+        if (elem == mapCache.end())
+            return;
+        RemoveNodeFromList(elem->second);
+        delete(elem->second);
+        mapCache.erase(elem);
+    }
+
+    // setKeyValue
+    // set key value and modify LRU Cache if necessary
+    // ------------------------------------
+    void SetKeyValue (int key, std::string value){
+        RemoveKey(key);
+        auto* newNode = new LinkedNode();
+        newNode->key = key;
+        newNode->value = std::move(value);
+        RemoveNodeFromList(newNode);
     }
 
 };
