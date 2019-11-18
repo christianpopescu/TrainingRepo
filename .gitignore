@@ -194,3 +194,6 @@ ModelManifest.xml
 # Idea build and project folder
 cmake-build-debug/
 .idea/
+
+#g++ cmake build
+*.o
