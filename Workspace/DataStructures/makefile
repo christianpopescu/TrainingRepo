@@ -1,2 +1,3 @@
-ArrayManipulation: ArrayManipulation.cpp
-g++ -Wall -g ArrayManipulation.cpp -o ArrayManipulation
+ArrayManipulation:
+\t ArrayManipulation.cpp
+\t g++ -Wall -g ArrayManipulation.cpp -o ArrayManipulation
