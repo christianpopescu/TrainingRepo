@@ -5,11 +5,14 @@
 
   class IsUnique {
   public:
-    IsUnique()=default;
+ static const int max = 256;
+    IsUnique();
     void SetInput(std::string in);
+    bool HasUniqueChar();
 
+   
   protected :
-    bool set[256];
+    bool set[max];
     std::string input;
     
 
