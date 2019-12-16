@@ -9,6 +9,7 @@
     IsUnique();
     void SetInput(std::string in);
     bool HasUniqueChar();
+    bool HasUniqueCharWithoutStructure();
 
    
   protected :

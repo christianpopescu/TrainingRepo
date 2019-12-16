@@ -23,3 +23,16 @@ bool IsUnique::HasUniqueChar(){
   }
   return true;
 }
+
+bool IsUnique::HasUniqueCharWithoutStructure(){
+  int n = input.size();
+  if (n > max) return false;
+
+  for (int i=0; i < n-1; ++i)
+    for (int j=i+1; j < n; ++j) {
+      if (input[(int)i] == input[(int)j])
+	return false;
+    }
+
+  return true;
+}
