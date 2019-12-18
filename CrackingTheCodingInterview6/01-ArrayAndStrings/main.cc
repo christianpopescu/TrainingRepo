@@ -1,9 +1,12 @@
 #include <iostream>
 #include <string>
 #include "project/1.1.IsUnique.h"
+#include "project/P1.2.CheckPermutation.h"
 
-int main () {
-  std::string sep{" : "};
+std::string sep{" : "};
+
+void p1_1(){
+    
   IsUnique iu;
   iu.SetInput("");
   std::cout << "" << sep << iu.HasUniqueChar() << std::endl;
@@ -14,5 +17,18 @@ int main () {
   iu.SetInput("abcdefa");
   std::cout << "abcdefa" << sep << iu.HasUniqueChar() << std::endl;
   std::cout << "abcdefa" << sep << iu.HasUniqueCharWithoutStructure() << std::endl;
+}
+
+void p1_2(){
+  CheckPermutation cp;
+  cp.SetInput("","");
+  std::cout << "" << sep << cp.CheckPermutationSort() << sep <<
+    cp.CheckPermutationCount() << std::endl;
+}
+  
+
+int main () {
+  p1_1();
+  p1_2();
   return 0;
 }

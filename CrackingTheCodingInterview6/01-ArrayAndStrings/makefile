@@ -9,13 +9,13 @@ run : main
 	./main
 
 main : main.o 1.1.IsUnique.o
-	g++ -std=c++17 main.o 1.1.IsUnique.o -o main
+	g++ -std=c++17 main.o 1.1.IsUnique.o P1.2.CheckPermutation.o -o main
 
-main.o : main.cc $(PROJECT_DIR)1.1.IsUnique.h $(PROJECT_DIR)1.1.IsUnique.cc
-	g++ -std=c++17 -c main.cc $(PROJECT_DIR)1.1.IsUnique.cc
-
-
+main.o : main.cc $(PROJECT_DIR)1.1.IsUnique.h $(PROJECT_DIR)1.1.IsUnique.cc $(PROJECT_DIR)P1.2.CheckPermutation.h $(PROJECT_DIR)P1.2.CheckPermutation.cc
+	g++ -std=c++17 -c main.cc $(PROJECT_DIR)1.1.IsUnique.cc $(PROJECT_DIR)P1.2.CheckPermutation.cc
 clean :
-	rm *.exe
-	rm *.o
+	rm -f *.exe
+	rm -f *.o
+	rm -f *~
+	rm -f $(PROJECT_DIR)/*~
 
