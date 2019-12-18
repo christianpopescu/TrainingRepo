@@ -22,13 +22,21 @@ void p1_1(){
 void p1_2(){
   CheckPermutation cp;
   cp.SetInput("","");
-  std::cout << "" << sep << cp.CheckPermutationSort() << sep <<
+  std::cout << "" << sep << "" << sep << cp.CheckPermutationSort() << sep <<
     cp.CheckPermutationCount() << std::endl;
+  cp.SetInput("123456789","987654321");
+  std::cout << "123456789" << sep << "987654321" << sep << cp.CheckPermutationSort() << sep <<
+    cp.CheckPermutationCount() << std::endl;
+  cp.SetInput("123456799","987654321");
+  std::cout << "123456799" << sep << "987654321" << sep << cp.CheckPermutationSort() << sep <<
+    cp.CheckPermutationCount() << std::endl;
+
+  
 }
   
 
 int main () {
-  p1_1();
+  //p1_1();
   p1_2();
   return 0;
 }
