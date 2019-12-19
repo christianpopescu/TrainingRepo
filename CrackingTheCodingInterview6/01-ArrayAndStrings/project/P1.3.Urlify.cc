@@ -1,27 +1,35 @@
-#include "P1.2.CheckPermutation.h"
+#include "P1.3.Urlify.h"
 #include <algorithm>
+#include <iostream>
 
-void CheckPermutation::SetInput(std::string in1,std::string in2){
-  input1 = in1;
-  input2 = in2;
+void Urlify::SetInput(char* in){
+  buf = in;
 }
 
-bool CheckPermutation::CheckPermutationSort(){
-  if (input1.size() != input2.size()) return false;
-  sort(input1.begin(), input1.end());
-  sort(input2.begin(), input2.end());
-  if(input1 == input2)
-    return true;
-  else
-    return false;
-}
-
-bool CheckPermutation::CheckPermutationCount(){
-  if (input1.size() != input2.size()) return false;
-  for (int i=0; i < input1.size(); ++i) {
-    cnt1[(int)(input1[i])]++;
-    cnt2[(int)(input2[i])]++;
+void Urlify::UrlifyString(){
+  int countSpace = 0;
+  int size=0;
+  char* iter = buf;
+  while (*iter != 0x00) {
+    if (*iter == ' ') countSpace++;
+    size++;
+    iter++;
   }
-  for (int i=0; i < max; ++i) if (cnt1[i] != cnt2[i]) return false;
-return true;
+  if ( countSpace == 0 || size == 0) return;
+  int newSize = size + countSpace*2;
+  buf[newSize] = 0x00;
+  int source = size - 1;
+  int dest = newSize - 1;
+  while (source >= 0) {
+    if (buf[source] != ' ') {
+      buf[dest--] = buf[source--];      
+    } else {
+      buf[dest] = '0';
+      buf[dest-1] = '2';
+      buf[dest-2] = '%';
+      dest -=3;
+      source--;
+    }
+    }
 }
+

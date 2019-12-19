@@ -7,13 +7,13 @@
   class Urlify {
   public:
     void SetInput(char* in);   // pass 0 terminated string
-    bool Urlify();
+    void UrlifyString();
 
    
   protected :
-    char buf*; 
+    char* buf; 
     
 
-  };
+};
 
 #endif // URLIFY_H

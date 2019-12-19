@@ -1,7 +1,9 @@
 #include <iostream>
 #include <string>
+#include <cstring>
 #include "project/1.1.IsUnique.h"
 #include "project/P1.2.CheckPermutation.h"
+#include "project/P1.3.Urlify.h"
 
 std::string sep{" : "};
 
@@ -33,10 +35,22 @@ void p1_2(){
 
   
 }
+
+void p1_3(){
+  char * in = new char[2000];
+  std::strcpy(in, "ab cd  efg h");
+   std::cout << in << std::endl;
+  Urlify u;
+  u.SetInput(in);
+  u.UrlifyString();
+  std::cout << in << std::endl;
+  
+}
   
 
 int main () {
   //p1_1();
-  p1_2();
+  //  p1_2();
+  p1_3();
   return 0;
 }
