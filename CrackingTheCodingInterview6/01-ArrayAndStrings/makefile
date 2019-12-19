@@ -5,17 +5,20 @@ PROJECT_DIR=project/
 headers:=$(PROJECT_DIR)1.1.IsUnique.h $(PROJECT_DIR)P1.2.CheckPermutation.h
 sources:=$(PROJECT_DIR)1.1.IsUnique.cc $(PROJECT_DIR)P1.2.CheckPermutation.cc
 objects:=1.1.IsUnique.o P1.2.CheckPermutation.o
+mainexe=main
+mainobj=main.o
+mainsrc=main.cc
 
 .PHONY: clean tests all
 
 run : main	
-	./main
+	./$(mainexe)
 
-main : main.o $(objects)
-	g++ -std=c++17 main.o $(objects) -o main
+main : $(mainobj) $(objects)
+	g++ -std=c++17 $(mainobj) $(objects) -o $(mainexe)
 
-main.o : main.cc  $(sources) $(headers)
-	g++ -std=c++17 -c main.cc $(sources)
+$(mainobj) : main.cc  $(sources) $(headers)
+	g++ -std=c++17 -c $(mainsrc) $(sources)
 clean :
 	rm -f *.exe
 	rm -f *.o
