@@ -1,17 +1,58 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
 const int NO_PARENT = -1;
+const int ROOT = 0;
 // depth first search
+class Graph {
+public:
+    Graph(std::vector<std::vector<int>> graph) :
+	_n(graph.size()),
+	visited(_n+1, false),
+	precedent(_n+1, NO_PARENT),
+	g{graph}{
+		
+	}
+	
+	void Visit(int node,int parent) {
+		visited[node] = true;
+		precedent[node] = parent;
+		if (node == _dest) { 
+			found = true;
+			return;
+		}
+		for (int i=0; i<g[node].size(); ++i){
+			if (!visited[g[node][i]]) Visit(g[node][i], node);
+			if (found) return;
+		}
+	}
 
+	std::vector<int> GetPathDfs (int src, int dest) {
+		found = false;
+		_src = src;
+		_dest = dest;
+		Visit(_src, ROOT);
 
-std::vector<int> GetPathDfs (std::vector<std::vector<int>>& graph,int src, int dest) {
-	vector<int> result;
-	int _n = graph.size();
-	vector<bool> visited (n+1, false);
-	vector<int> precedent (n+1, NO_PARENT);
-}
-
+		std::vector<int> result;
+		if (found) {
+			int current = _dest;
+			while (precedent[current] != ROOT) {
+				result.push_back(current);
+				current = precedent[current];
+			}
+		}
+		return result;
+	}
+private :
+	std::vector<std::vector<int>> g;
+	int _n ; 
+	std::vector<bool> visited;
+	std::vector<int> precedent;
+	bool found = false;
+	int _src;
+	int _dest;
+};
 
 int main () {
 
@@ -24,9 +65,18 @@ int main () {
 	std::vector<std::vector<int>> adjList(n + 1);
     int src, dest;
 	for (int i = 0; i< e; ++i) {
-		std::cin >> src >> dest >> endl;
+		std::cout << "Edge " << i << " / " << e << " : ";
+		std::cin >> src >> dest;
 		adjList[src].push_back(dest);
 	}
+	
+	std::cout << "Source and destination" << std::endl;
+	std::cin >> src >> dest;
+	Graph gg(adjList);
+	std::vector<int> r = gg.GetPathDfs(src, dest);
+	for (std::vector<int>::reverse_iterator it = r.rbegin(); it < r.rend(); it++)
+		std::cout << (*it) << std::endl;
+	
 }
 
  
