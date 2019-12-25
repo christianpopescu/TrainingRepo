@@ -197,3 +197,6 @@ cmake-build-debug/
 
 #g++ cmake build
 *.o
+
+# executables
+*.exe
