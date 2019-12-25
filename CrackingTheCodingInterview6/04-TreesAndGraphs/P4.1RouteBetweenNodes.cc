@@ -41,6 +41,7 @@ public:
 				result.push_back(current);
 				current = precedent[current];
 			}
+			result.push_back(current);
 		}
 		return result;
 	}
@@ -65,7 +66,7 @@ int main () {
 	std::vector<std::vector<int>> adjList(n + 1);
     int src, dest;
 	for (int i = 0; i< e; ++i) {
-		std::cout << "Edge " << i << " / " << e << " : ";
+		std::cout << "Edge " << i+1 << " / " << e << " : ";
 		std::cin >> src >> dest;
 		adjList[src].push_back(dest);
 	}
@@ -74,6 +75,7 @@ int main () {
 	std::cin >> src >> dest;
 	Graph gg(adjList);
 	std::vector<int> r = gg.GetPathDfs(src, dest);
+    std::cout << "Path from source to destination" << std::endl;
 	for (std::vector<int>::reverse_iterator it = r.rbegin(); it < r.rend(); it++)
 		std::cout << (*it) << std::endl;
 	
