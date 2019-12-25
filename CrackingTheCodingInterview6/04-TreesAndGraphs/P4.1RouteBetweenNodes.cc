@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <queue>
 
 const int NO_PARENT = -1;
 const int ROOT = 0;
@@ -45,6 +46,38 @@ public:
 		}
 		return result;
 	}
+	std::vector<int> GetPathBfs (int src, int dest) {
+		found = false;
+		_src = src;
+		_dest = dest;
+		std::queue<int> q;
+		precedent[_src] = ROOT;
+		q.push(_src);
+		int current;
+        while (!q.empty() && !found) {
+			current = q.front(); q.pop();
+			visited[current] = true;
+			if (current == _dest) {
+				found = true;
+			} else {
+				for (auto nd : g[current]) {
+					precedent[nd] = current;
+					q.push(nd);
+				}
+			}
+				
+		}
+		std::vector<int> result;
+		if (found) {
+			int current = _dest;
+			while (precedent[current] != ROOT) {
+				result.push_back(current);
+				current = precedent[current];
+			}
+			result.push_back(current);
+		}
+		return result;
+	}
 private :
 	std::vector<std::vector<int>> g;
 	int _n ; 
@@ -75,9 +108,15 @@ int main () {
 	std::cin >> src >> dest;
 	Graph gg(adjList);
 	std::vector<int> r = gg.GetPathDfs(src, dest);
-    std::cout << "Path from source to destination" << std::endl;
+    std::cout << "Path from source to destination DFS" << std::endl;
 	for (std::vector<int>::reverse_iterator it = r.rbegin(); it < r.rend(); it++)
 		std::cout << (*it) << std::endl;
+	
+	r = gg.GetPathBfs(src, dest);
+    std::cout << "Path from source to destination BFS" << std::endl;
+	for (std::vector<int>::reverse_iterator it = r.rbegin(); it < r.rend(); it++)
+		std::cout << (*it) << std::endl;
+
 	
 }
 
