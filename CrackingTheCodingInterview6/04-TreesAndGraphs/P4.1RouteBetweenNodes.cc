@@ -61,8 +61,10 @@ public:
 				found = true;
 			} else {
 				for (auto nd : g[current]) {
-					precedent[nd] = current;
-					q.push(nd);
+					if (!visited[nd]) {
+						precedent[nd] = current;
+						q.push(nd);
+					}
 				}
 			}
 				
