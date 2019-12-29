@@ -2,17 +2,21 @@ GTEST_CFLAGS = `pkg-config --cflags gtest_main`
 GTEST_LIBS = `pkg-config --libs gtest_main`
 TEST_DIR=test/
 PROJECT_DIR=project/
+PROBLEM=P8.02.RobotInTheGrid
+PROBLEM_CC:=$(PROBLEM).cc
+PROBLEM_O:=$(PROBLEM).O
+PROBLEM_EXE:=$(PROBLEM).exe
 
-.PHONY: clean tests all
+.PHONY: clean 
 
-p8.01 : P8.01.TripleStep	
-	./P8.01.TripleStep
+run : $(PROBLEM)	
+	./$(PROBLEM_EXE)
 
-P8.01.TripleStep : P8.01.TripleStep.o 
-	g++ -std=c++17 P8.01.TripleStep.o -o P8.01.TripleStep
+$(PROBLEM) : $(PROBLEM_O) 
+	g++ -std=c++17 $(PROBLEM_O) -o $(PROBLEM_EXE)
 
-P8.01.TripleStep.o : P8.01.TripleStep.cc 
-	g++ -std=c++17 -c P8.01.TripleStep.cc
+$(PROBLEM_O) : $(PROBLEM_CC)
+	g++ -std=c++17 -c $(PROBLEM_CC)
 
 
 clean :
