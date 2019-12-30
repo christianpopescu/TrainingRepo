@@ -16,46 +16,12 @@ public:
 	int count = 0;
 	int magic_index = -1;
 	
-	vector<int> getMagicIndex() {
-		vector<int> result;
-		getMagicIndex(0, array.size()-1);
-		if (magic_index >-1) {
-			result.push_back(magic_index);
-			int current = magic_index-1;
-			while (current > 0 && array[current] == current) {
-				result.push_back(current);
-				--current;
-			}
-			current = magic_index + 1;
-			while (current < array.size() && array[current] == current) {
-				result.push_back(current);
-				++current;
-			}
-			sort(result.begin(), result.end());
-		}
-		return result;
-		
-	}
-	
-	bool getMagicIndex(int b, int e)
-	{
-		if (b > e) return false;
-		if (b == e) {
-			if (array[b] == b) {
-				magic_index = b;
-				return true;
-			} else
-				return false;
-		} else {
-			 int middle = (e + b)/2;
-			 if (array[middle] == middle) {
-				 magic_index = middle;
-				 return true;
-			 } else if (array[middle] < middle)
-				 return getMagicIndex(middle + 1, e);
-			 else
-				 return getMagicIndex(b, middle - 1);
-		}
+	// Combinatorics version
+	// generates all the numbers from 1 to 2^n. For each number use the bit as index of set.
+	vector<vector<int>> all generateAllSubsets(vector<int> set) {
+	   int max = 1 << set.size();    // Computes 2^name
+	   
+	   
 	}
 };
 
