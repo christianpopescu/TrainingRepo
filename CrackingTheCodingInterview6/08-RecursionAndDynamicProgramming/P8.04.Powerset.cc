@@ -16,6 +16,7 @@ public:
 	int count = 0;
 	int magic_index = -1;
 	
+	
 	vector<int> ConvertIntToSet(int k, vector<int>& set) {
 		vector<int> subset;
 		int index = 0;
@@ -39,6 +40,26 @@ public:
 	   return result;
 	}
 	
+	void subset(int k, vector<int>& set, vector<vector<int>>& allsubsets, vector<int> input) {
+		if (k == input.size()) allsubsets.push_back(set);
+		else {
+			subset(k+1, set, allsubsets, input);
+			set.push_back(input[k]);
+			subset(k+1, set, allsubsets, input);
+			set.pop_back();
+		}
+	}
+	
+	// Recursive version
+	vector<vector<int>> generateAllSubsetsRecursive(vector<int>& set) {
+		vector<int> buf;
+		vector<vector<int>> allsubsets;
+		subset(0, buf, allsubsets, set);
+		return allsubsets;
+	}
+		
+	
+	
 	void PrintAllSubsets(vector<vector<int>>& subsets) {
 		cout << "Number of subsets " << subsets.size() << endl;
 		for (auto ss : subsets) {
@@ -52,8 +73,13 @@ public:
 
 int main(){
 	Powerset ps;
-	vector<int> set = {7, 8, 9};
+	vector<int> set = {7, 8, 9, 30, 35};
 	auto subsets = ps.generateAllSubsets(set);
+	sort(subsets.begin(), subsets.end());
+	ps.PrintAllSubsets(subsets);
+	cout << "-----------------------------------------\n";
+	subsets = ps.generateAllSubsetsRecursive(set);
+	sort(subsets.begin(), subsets.end());
 	ps.PrintAllSubsets(subsets);
 	cout << "End of problem";
 	
