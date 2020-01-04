@@ -2,7 +2,7 @@ GTEST_CFLAGS = `pkg-config --cflags gtest_main`
 GTEST_LIBS = `pkg-config --libs gtest_main`
 TEST_DIR=test/
 PROJECT_DIR=project/
-PROBLEM=P8.07.PermWithoutDups
+PROBLEM=P8.08.PermWithDups
 PROBLEM_CC:=$(PROBLEM).cc
 PROBLEM_O:=$(PROBLEM).O
 PROBLEM_EXE:=$(PROBLEM).exe
@@ -20,6 +20,6 @@ $(PROBLEM_O) : $(PROBLEM_CC)
 
 
 clean :
-	rm *.exe
-	rm *.o
+	-rm *.exe
+	-rm *.o
 
