@@ -6,43 +6,52 @@
 #include <stack>
 #include <queue>
 
+// not realy tested
+// !!!!!!!!!!!!!!!!!!!!!
+
+
 using namespace std;
 
+class node {
+	public:
+	node() :
+	p{nullptr},
+	l{nullptr},
+	r{nullptr},
+	k{0} {
+	}
+	
+	node* p;
+	node* l;
+	node* r; 
+	int k;
+};
 
-class GroupAnagrams{
+class BinaryTree{
+	public:
+	node* root;
+	BinaryTree() : root{nullptr}
+		{}
+};
+
+
+class ValidBst{
 public:
-    int a[2048];
-	int b[256];
-	vector<string> listOfStrings;
-	vector<pair<string,string>> lstToSort;
-	
-	GroupAnagrams& AddString(string st) {
-		listOfStrings.push_back(st);
-		return *this;
-	} 
-	void sortByAnagram() {
-		lstToSort.clear();
-		string buff = "";
-		for (auto s : listOfStrings) {
-			buff = s;
-			sort(buff.begin(), buff.end());
-			lstToSort.push_back(make_pair(buff, s));
-		}
-		sort(lstToSort.begin(), lstToSort.end());
-	}
-	
-	void PrintSorted(){
-		for(auto ps : lstToSort) {
-			cout << ps.first << "   " << ps.second << endl;
-		}
-	}
+   BinaryTree bt;
+   
+   bool validate() {
+	   return (bt.root, INT_MIN, INT_MAX);
+   }
+   
+   bool validate(node* nd, int min, int max) {
+	   if (nd == nullptr) return true;
+	   if (nd->k <= min || nd->k >= max) return false;
+	   return validate(nd->l, min, nd->k) && validate(nd->r, nd->k, max);
+   }
 };
 
 int main(){
-	GroupAnagrams ga;
-	ga.AddString("aba").AddString("baa").AddString("ccb").AddString("acb")
-	.AddString("aab").AddString("cbc").AddString("bac");
-	ga.sortByAnagram();
-	ga.PrintSorted();
+	ValidBst vb;
+	cout << vb.validate();
 	return 0;
 }
