@@ -29,23 +29,21 @@ public:
 	void SetInput(int pn) {
 	    n = pn;
 		sum = 0;
-		available_left = pn;
-		available_right = pn;
-		buff.push_back(' ');
-		for (char c : input) buff.push_back(c);
-		count = 1;
-		open = 0 ;
+		count = 0;
+//		cout << coin[0] << coin[1]<< coin[2]<< coin[3]<< endl;
+		
 	}
 	
-	void Generate() {
+	void Generate(int start) {
+//	   cout << sum << endl;
 	   if (sum == n) {
 		   ProcessPermutation();
 	   } else {
-		   for (int i=0; i<4; i++)
+		   for (int i=start; i<4; i++)
 		   {
-			   if (sum + coin[i] <= sum) {
+			   if (sum + coin[i] <= n) {
 				   sum += coin[i];
-				   Generate();
+				   Generate(i);
 				   sum -= coin[i];
 			   }
 		   }
@@ -54,14 +52,15 @@ public:
 	
 	void ProcessPermutation() {
 		count++;
+//		cout << count << endl;
 	}
 };
 
 int main(){
 	Coins cns;
 //	pwd.SetInput("abccba");
-	cns.SetInput(3);
-	cns.Generate(); 
+	cns.SetInput(6);
+	cns.Generate(0); 
 	cout << cns.count << endl;
 	return 0;
 }
