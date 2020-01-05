@@ -11,7 +11,7 @@ vector<stack<int>> tower(4);
 
 class Coins{
 public:
-    vector<char> permutation;
+    vector<string> permutation;
 	vector<bool> choosen;
 	string input;
 	vector<char> buff;
@@ -24,6 +24,7 @@ public:
 	int sum = 0;
 	int count;
 	int coin[4] {1, 5, 10, 25};
+	string coinStr[4] {"1", "5", "10", "25"};
 
 	
 	void SetInput(int pn) {
@@ -31,6 +32,7 @@ public:
 		sum = 0;
 		count = 0;
 //		cout << coin[0] << coin[1]<< coin[2]<< coin[3]<< endl;
+		permutation.clear();
 		
 	}
 	
@@ -43,15 +45,21 @@ public:
 		   {
 			   if (sum + coin[i] <= n) {
 				   sum += coin[i];
+				   permutation.push_back(coinStr[i]);
 				   Generate(i);
 				   sum -= coin[i];
+				   permutation.pop_back();
 			   }
 		   }
 	   }
 	}
-	
+	void PrintPermutation() {
+		for (string s : permutation) cout << s << " ";
+		cout << endl;
+	}
 	void ProcessPermutation() {
 		count++;
+		PrintPermutation();
 //		cout << count << endl;
 	}
 };
@@ -59,7 +67,7 @@ public:
 int main(){
 	Coins cns;
 //	pwd.SetInput("abccba");
-	cns.SetInput(6);
+	cns.SetInput(54);
 	cns.Generate(0); 
 	cout << cns.count << endl;
 	return 0;
