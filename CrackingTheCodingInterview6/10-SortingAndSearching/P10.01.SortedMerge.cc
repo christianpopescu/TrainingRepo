@@ -8,73 +8,73 @@
 
 using namespace std;
 
-int n=6;
-vector<vector<int>> screen(n,vector(n,1));
 
-class PaintFill{
+class SortedMerge{
 public:
-    PaintFill() {
-		
-	}
-	int originalColor;
-	queue<pair<int,int>> q;
-	void fill(int r, int c, int color) {
-		originalColor = screen[r][c];
-		//fillDfs(r, c, color);
-		fillBfs(r, c, color);
-	}
-	
-	void fillDfs(int r, int c, int color) {
-		if (r<0 || r>=n || c<0 || c >=n) return;
-		if (screen[r][c] == color || screen[r][c] != originalColor) return;
-		screen[r][c] = color;
-		fillDfs(r+1, c, color);
-		fillDfs(r, c-1, color);
-		fillDfs(r-1, c, color);
-		fillDfs(r, c+1, color);
-	}
-	void fillBfs(int r, int c, int color) {
-		q.push(make_pair(r,c));
-		pair<int,int> current;
-		int x = 0;
-		while (!q.empty()) {
-			current = q.front();
-			q.pop();
-			int _r = current.first;
-			int _c = current.second;
-			
-			screen[_r][_c] = color;
-			if (_r > 0 && screen[_r-1][_c] == originalColor && screen[_r-1][_c] != color)  q.push(make_pair(_r-1,_c));
-			if (_c > 0 && screen[_r][_c-1] == originalColor && screen[_r][_c-1] != color)  q.push(make_pair(_r,_c-1)); 
-			if (_r < n-1 && screen[_r+1][_c] == originalColor && screen[_r+1][_c] != color)  q.push(make_pair(_r+1,_c)); 
-			if (_c < n-1 && screen[_r][_c+1] == originalColor && screen[_r][_c+1] != color)  q.push(make_pair(_r,_c+1)); 
+    int a[2048];
+	int b[256];
+	void PrintA(){
+		int* p = a;
+		while (*p != 0){
+			cout << (*p++) << " ";
 		}
 	}
 	
-	void PrnScr(){
-		for (auto r : screen){
-			for(auto c : r) 
-				cout << c << ' ';
-			cout << endl;
+	int* end(int * ar) {
+		int* p = ar;
+		while (*p != 0){
+			p++;
 		}
-		
-			
+		return p;
 	}
+	
+	void SortA(){
+		sort(a,end(a));
+	}
+	
+	void SortB(){
+		sort(b,end(b));
+	}
+	
+	void MergeABInPlace(){
+		int* endA = end(a);
+		int* endB = end(b);
+		int* endMerged = a + (endA-a) + (endB - b);
+		(*endMerged) = 0;
+		int* cM = endMerged-1;
+		int* cA = endA -1;
+		int* cB = endB - 1;
+		while (cB >=b) {
+			if ((*cA) < (*cB)) {
+				(*cM) = (*cB);
+				cB--;
+			} else {
+				(*cM) = (*cA);
+				cA--;
+			}
+			cM--;
+		}
+	}
+	
 };
 
 int main(){
-	PaintFill pf;
-	pf.PrnScr();
-	cout << endl;
-	screen[1][1] = 3;
-	screen[1][2] = 3;
-	screen[2][3] = 3;
-	screen[3][4] = 4;
-	screen[4][5] = 5;
-	screen[2][0] = 5;
-	pf.PrnScr();
-	cout << endl;
-	pf.fill(0,1,0);
-	pf.PrnScr();
+	SortedMerge sm;
+	sm.a[0] = 18;
+	sm.a[1] = 15;
+	sm.a[2] = 1;
+	sm.a[3] = 24;
+	sm.a[4] = 0;
+	sm.b[0] = 19;
+	sm.b[1] = 17;
+	sm.b[2] = 2;
+	sm.b[3] = 0;
+	sm.b[4] = 0;
+
+	sm.SortA();
+	sm.SortB();
+	sm.PrintA();
+	sm.MergeABInPlace();
+	sm.PrintA();
 	return 0;
 }
