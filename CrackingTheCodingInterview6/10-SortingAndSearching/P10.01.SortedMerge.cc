@@ -18,6 +18,7 @@ public:
 		while (*p != 0){
 			cout << (*p++) << " ";
 		}
+		cout << endl;
 	}
 	
 	int* end(int * ar) {
@@ -64,11 +65,14 @@ int main(){
 	sm.a[1] = 15;
 	sm.a[2] = 1;
 	sm.a[3] = 24;
-	sm.a[4] = 0;
+	sm.a[4] = 2;
+	sm.a[5] = 19;
+	sm.a[6] = 0;
+
 	sm.b[0] = 19;
 	sm.b[1] = 17;
 	sm.b[2] = 2;
-	sm.b[3] = 0;
+	sm.b[3] = 27;
 	sm.b[4] = 0;
 
 	sm.SortA();
