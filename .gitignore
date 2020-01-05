@@ -200,3 +200,4 @@ cmake-build-debug/
 
 # executables
 *.exe
+/CrackingTheCodingInterview6/04-TreesAndGraphs/*.o

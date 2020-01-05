@@ -2,26 +2,24 @@ GTEST_CFLAGS = `pkg-config --cflags gtest_main`
 GTEST_LIBS = `pkg-config --libs gtest_main`
 TEST_DIR=test/
 PROJECT_DIR=project/
-headers:=$(PROJECT_DIR)1.1.IsUnique.h $(PROJECT_DIR)P1.2.CheckPermutation.h $(PROJECT_DIR)P1.3.Urlify.h
-sources:=$(PROJECT_DIR)1.1.IsUnique.cc $(PROJECT_DIR)P1.2.CheckPermutation.cc $(PROJECT_DIR)P1.3.Urlify.cc
-objects:=1.1.IsUnique.o P1.2.CheckPermutation.o P1.3.Urlify.o
-mainexe=main
-mainobj=main.o
-mainsrc=main.cc
+PROBLEM=P04.05.ValidateBST
+PROBLEM_CC:=$(PROBLEM).cc
+PROBLEM_O:=$(PROBLEM).O
+PROBLEM_EXE:=$(PROBLEM).exe
 
-.PHONY: clean tests all
+.PHONY: clean 
 
-run : main	
-	./$(mainexe)
+run : $(PROBLEM)	
+	./$(PROBLEM_EXE)
 
-main : $(mainobj) $(objects)
-	g++ -std=c++17 $(mainobj) $(objects) -o $(mainexe)
+$(PROBLEM) : $(PROBLEM_O) 
+	g++ -std=c++17 $(PROBLEM_O) -o $(PROBLEM_EXE)
 
-$(mainobj) : main.cc  $(sources) $(headers)
-	g++ -std=c++17 -c $(mainsrc) $(sources)
+$(PROBLEM_O) : $(PROBLEM_CC)
+	g++ -std=c++17 -c $(PROBLEM_CC)
+
+
 clean :
-	rm -f *.exe
-	rm -f *.o
-	rm -f *~
-	rm -f $(PROJECT_DIR)/*~
+	-rm *.exe
+	-rm *.o
 
