@@ -9,29 +9,17 @@
 // not realy tested
 // !!!!!!!!!!!!!!!!!!!!!
 
-
 using namespace std;
 
 class node {
 	public:
-	node() :
-	p{nullptr},
-	l{nullptr},
-	r{nullptr},
-	k{0} {
-	}
-	
-	node* p;
-	node* l;
-	node* r; 
-	int k;
+	vector<int> children;
+	int key;
 };
 
-class BinaryTree{
+class Graph{
 	public:
-	node* root;
-	BinaryTree() : root{nullptr}
-		{}
+	vector<node> nodes;
 };
 
 
