@@ -6,8 +6,6 @@
 #include <stack>
 #include <queue>
 
-// not realy tested
-// !!!!!!!!!!!!!!!!!!!!!
 
 using namespace std;
 
