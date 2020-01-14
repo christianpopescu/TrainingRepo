@@ -20,10 +20,17 @@ class GraphNode {
 
 class Graph{
 	public:
+	enum struct visit {
+		not_visited,
+		visiting,
+		visited
+	};
 	vector<GraphNode> nodes;
+	vector<visit> visited_status;
 	unordered_map<char,int>index;
 	Graph& addNode(char c) {
 		nodes.push_back(GraphNode(c));
+		visited_status.push_back(visit::not_visited);
 		index[c] = nodes.size()-1;
 		return *this;
 	}
@@ -31,6 +38,7 @@ class Graph{
 		nodes[index[u]].children.push_back(index[v]);
 		return *this;
 	}
+
 };
 
 
