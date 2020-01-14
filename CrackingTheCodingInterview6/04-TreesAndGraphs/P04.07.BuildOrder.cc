@@ -11,41 +11,35 @@
 
 using namespace std;
 
-class node {
+class GraphNode {
 	public:
+	GraphNode(char _key):key{key} {};
 	vector<int> children;
-	int key;
+	char key;
 };
 
 class Graph{
 	public:
-	vector<node> nodes;
+	vector<GraphNode> nodes;
+	unordered_map<char,int>index;
+	Graph& addNode(char c) {
+		nodes.push_back(GraphNode(c));
+		index[c] = nodes.size()-1;
+		return *this;
+	}
+	Graph& addEdge(char u, char v) {
+		nodes[index[u]].children.push_back(index[v]);
+		return *this;
+	}
 };
 
 
-class GetSuccessor{
-public:
-   BinaryTree bt;
-   
 
-   
-   node* successor(node* nd) {
-	   if (nd->r != nullptr) {
-		   if (nd->r->l == nullptr) return nd->r;
-		   node* cr = nd->r->l;
-		   while (cr->l != nullptr) cr = cr->l;
-		   return cr;
-	   } else  {
-			node* cr = nd;		   
-			while (cr->p != nullptr && cr->p->r == cr) cr = cr->p;
-			return cr->p; // nullptr if root successor otherwise
-	   }
-
-   }
-};
 
 int main(){
-	GetSuccessor gs;
+	Graph gs;
+	gs.addNode('a').addNode('b').addNode('c').addNode('d').addNode('e').addNode('f');
+	gs.addEdge('a','b').addEdge('f','b').addEdge('b','d').addEdge('f','a').addEdge('d','c');
 
 	return 0;
 }
